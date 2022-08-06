@@ -1,0 +1,16 @@
+version: '3'
+
+tasks:
+  run:
+    cmds:
+      - dotnet run --project ./src/Panthera.Api
+  watch:
+    cmds:
+      - dotnet watch run --project ./src/Panthera.Api
+  migrate:
+    cmds:
+      - dotnet ef migrations add {{.CLI_ARGS}} --project src/Panthera.Infrastructure --startup-project src/Panthera.Api --output-dir Migrations
+      - task: update
+  update:
+    cmds:
+      - dotnet ef database update --project src/Panthera.Infrastructure --startup-project src/Panthera.Api
