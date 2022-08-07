@@ -3,14 +3,14 @@ version: '3'
 tasks:
   run:
     cmds:
-      - dotnet run --project ./src/Panthera.Api
+      - dotnet run --project ./src/Harmony.Api
   watch:
     cmds:
-      - dotnet watch run --project ./src/Panthera.Api
+      - dotnet watch run --project ./src/Harmony.Api
   migrate:
     cmds:
-      - dotnet ef migrations add {{.CLI_ARGS}} --project src/Panthera.Infrastructure --startup-project src/Panthera.Api --output-dir Migrations
+      - dotnet ef migrations add {{.CLI_ARGS}} --project src/Harmony.Infrastructure --startup-project src/Harmony.Api --output-dir Migrations
       - task: update
   update:
     cmds:
-      - dotnet ef database update --project src/Panthera.Infrastructure --startup-project src/Panthera.Api
+      - dotnet ef database update --project src/Harmony.Infrastructure --startup-project src/Harmony.Api
