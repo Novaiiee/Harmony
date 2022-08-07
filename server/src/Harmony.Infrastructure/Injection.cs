@@ -15,7 +15,7 @@ public static class Injection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
         services.AddScoped<IJwtGenerator, JwtGenerator>();
-        services.AddDbContext<DataContext>(x => x.UseNpgsql(config.GetConnectionString("Database")));
+        services.AddDbContext<DataContext>(x => x.UseNpgsql(config.GetConnectionString("Database"), x => x.UseNodaTime()));
 
         services.AddIdentityCore<User>().AddEntityFrameworkStores<DataContext>();
         services.AddAuthentication(options =>
