@@ -1,3 +1,4 @@
+using Harmony.Application;
 using Harmony.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -6,11 +7,12 @@ using NodaTime;
 
 namespace Harmony.Infrastructure;
 
-public class DataContext : IdentityDbContext<User>
+public class DataContext : IdentityDbContext<User>, IDataContext
 {
     public DbSet<Feeling> Feelings { get; set; } = null!;
     public DbSet<JournalEntry> JournalEntries { get; set; } = null!;
     public DbSet<Activity> Activities { get; set; } = null!;
+    public DbSet<Mood> Moods { get; set; } = null!;
 
     private IConfiguration Config { get; init; }
 
@@ -19,11 +21,14 @@ public class DataContext : IdentityDbContext<User>
         Config = config;
     }
 
+    public async Task SaveChangesAsync() => await base.SaveChangesAsync();
+
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         if (!options.IsConfigured)
         {
             options.UseNpgsql(Config.GetConnectionString("Database"), x => x.UseNodaTime());
+            options.EnableSensitiveDataLogging();
         }
     }
 
@@ -44,6 +49,10 @@ public class DataContext : IdentityDbContext<User>
             .Property(b => b.Id)
             .HasDefaultValue(new Guid().ToString());
 
+        builder.Entity<Mood>()
+            .Property(b => b.Id)
+            .HasDefaultValue(new Guid().ToString());
+
         //Created At
         builder.Entity<Activity>()
             .Property(b => b.CreatedAt)
@@ -54,6 +63,10 @@ public class DataContext : IdentityDbContext<User>
             .HasDefaultValue(new Instant());
 
         builder.Entity<JournalEntry>()
+            .Property(b => b.CreatedAt)
+            .HasDefaultValue(new Instant());
+
+        builder.Entity<Mood>()
             .Property(b => b.CreatedAt)
             .HasDefaultValue(new Instant());
 
@@ -69,5 +82,11 @@ public class DataContext : IdentityDbContext<User>
         builder.Entity<JournalEntry>()
             .Property(b => b.UpdatedAt)
             .HasDefaultValue(new Instant());
+
+        builder.Entity<Mood>()
+            .Property(b => b.UpdatedAt)
+            .HasDefaultValue(new Instant());
+
+        Seed.Create(builder);
     }
 }

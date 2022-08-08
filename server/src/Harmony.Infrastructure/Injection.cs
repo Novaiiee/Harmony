@@ -1,4 +1,5 @@
 using System.Text;
+using Harmony.Application;
 using Harmony.Application.Interfaces;
 using Harmony.Domain.Entities;
 using Harmony.Infrastructure.Auth;
@@ -15,6 +16,7 @@ public static class Injection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
         services.AddScoped<IJwtGenerator, JwtGenerator>();
+        services.AddScoped<IDataContext, DataContext>();
         services.AddDbContext<DataContext>(x => x.UseNpgsql(config.GetConnectionString("Database"), x => x.UseNodaTime()));
 
         services.AddIdentityCore<User>().AddEntityFrameworkStores<DataContext>();
