@@ -33,19 +33,16 @@ public class ReflectionService : IReflectionService
 
         foreach (var activity in activityRows)
         {
-            if (activity.Reflections is null) activity.Reflections = new();
             activity.Reflections.Add(newEntry);
             context.Activities.Update(activity);
         }
 
         foreach (var feeling in feelingsRows)
         {
-            if (feeling.Reflections is null) feeling.Reflections = new();
             feeling.Reflections.Add(newEntry);
             context.Feelings.Update(feeling);
         }
 
-        if (mood.Reflections is null) mood.Reflections = new();
         mood.Reflections.Add(newEntry);
 
         await context.Reflections.AddAsync(newEntry);
@@ -57,6 +54,30 @@ public class ReflectionService : IReflectionService
             StatusCode = 201,
             Message = "Successfully created the reflection",
         };
+    }
+
+    public async Task<Response<int>> DeleteReflectionAsync(User user, string id)
+    {
+        if (!context.Reflections.Any())
+        {
+            return await Task.FromResult(new Response<int>
+            {
+                Data = 0,
+                Message = "No Entries found but no error",
+                StatusCode = 200,
+            });
+        }
+        var doc = context.Reflections.Where(x => x.Id == id).First();
+        context.Reflections.Remove(doc);
+
+        await context.SaveChangesAsync();
+
+        return await Task.FromResult(new Response<int>
+        {
+            Data = 0,
+            Message = "Successfully deleted the reflection",
+            StatusCode = 200,
+        });
     }
 
     public async Task<Response<List<GetReflectionsResponse>>> GetAllEntriesAsync(string userId)
@@ -77,6 +98,7 @@ public class ReflectionService : IReflectionService
             .Include(x => x.Feelings)
             .Include(x => x.Activities).Select(x => new GetReflectionsResponse
             {
+                Id = x.Id,
                 Activities = x.Activities.Select(x => x.Name).ToList(),
                 Feelings = x.Feelings.Select(x => x.Name).ToList(),
                 Description = x.Description,

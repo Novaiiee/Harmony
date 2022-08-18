@@ -36,4 +36,13 @@ public class ReflectionController : ControllerBase
 
         return StatusCode(result.StatusCode, result);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteReflectionAsync([FromRoute] string id)
+    {
+        var user = await authService.GetUserAsync(HttpContext.User);
+        var result = await reflectionService.DeleteReflectionAsync(user, id);
+
+        return StatusCode(result.StatusCode, result);
+    }
 }

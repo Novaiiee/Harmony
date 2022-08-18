@@ -9,4 +9,5 @@ public interface IReflectionService
 {
     public Task<Response<List<GetReflectionsResponse>>> GetAllEntriesAsync(string userId);
     public Task<Response<int>> CreateReflectionAsync(User user, CreateReflectionRequest model);
+    public Task<Response<int>> DeleteReflectionAsync(User user, string id);
 }
