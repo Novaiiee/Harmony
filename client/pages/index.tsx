@@ -1,5 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import tw from "twin.macro";
+
+const Button = tw.button`
+  font-bold 
+  px-4
+  py-2 
+  bg-gray-500
+  text-white
+  rounded-lg
+`;
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +20,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-
+        <Button>hello</Button>
       </main>
     </>
   );
