@@ -18,7 +18,7 @@ public class ReflectionService : IReflectionService
         this.mapper = mapper;
     }
 
-    public async Task<Response<int>> CreateReflectionAsync(User user, CreateReflectionRequest model)
+    public async Task<Response<string>> CreateReflectionAsync(User user, CreateReflectionRequest model)
     {
         var activityRows = context.Activities.Where(x => model.Activities.Contains(x.Name)).ToList();
         var feelingsRows = context.Feelings.Where(x => model.Feelings.Contains(x.Name)).ToList();
@@ -51,21 +51,21 @@ public class ReflectionService : IReflectionService
         await context.Reflections.AddAsync(newEntry);
         await context.SaveChangesAsync();
 
-        return new Response<int>
+        return new Response<string>
         {
-            Data = 0,
+            Data = null,
             StatusCode = 201,
             Message = "Successfully created the reflection",
         };
     }
 
-    public async Task<Response<int>> DeleteReflectionAsync(User user, string id)
+    public async Task<Response<string>> DeleteReflectionAsync(User user, string id)
     {
         if (!context.Reflections.Any())
         {
-            return await Task.FromResult(new Response<int>
+            return await Task.FromResult(new Response<string>
             {
-                Data = 0,
+                Data = null,
                 Message = "No Entries found but no error",
                 StatusCode = 200,
             });
@@ -74,9 +74,9 @@ public class ReflectionService : IReflectionService
 
         if (doc is null)
         {
-            return await Task.FromResult(new Response<int>
+            return await Task.FromResult(new Response<string>
             {
-                Data = 1,
+                Data = null,
                 Message = "Reflection not found",
                 StatusCode = 404,
             });
@@ -85,9 +85,9 @@ public class ReflectionService : IReflectionService
         context.Reflections.Remove(doc);
         await context.SaveChangesAsync();
 
-        return await Task.FromResult(new Response<int>
+        return await Task.FromResult(new Response<string>
         {
-            Data = 0,
+            Data = null,
             Message = "Successfully deleted the reflection",
             StatusCode = 200,
         });

@@ -6,7 +6,6 @@ using Harmony.Application.Interfaces;
 using Harmony.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 
 namespace Harmony.Application.Services.Auth;
 
@@ -70,13 +69,13 @@ public class AuthService : IAuthService
         };
     }
 
-    public async Task<IdentityResponse<int>> RegisterAsync(AuthRequest model)
+    public async Task<IdentityResponse<string>> RegisterAsync(AuthRequest model)
     {
         var user = await userManager.FindByEmailAsync(model.Email);
 
         if (user is not null)
         {
-            return new IdentityResponse<int>
+            return new IdentityResponse<string>
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "The user already exists",
@@ -86,7 +85,7 @@ public class AuthService : IAuthService
                         Description = "The user with that email already exists"
                     }
                 },
-                Data = 0,
+                Data = null,
             };
         }
 
@@ -100,21 +99,21 @@ public class AuthService : IAuthService
 
         if (!result.Succeeded)
         {
-            return new IdentityResponse<int>
+            return new IdentityResponse<string>
             {
                 StatusCode = StatusCodes.Status500InternalServerError,
                 Message = "Could not create the user",
-                Data = 0,
+                Data = null,
                 Errors = result.Errors
             };
         }
 
-        return new IdentityResponse<int>
+        return new IdentityResponse<string>
         {
             StatusCode = StatusCodes.Status201Created,
             Message = "User successfully created",
             Errors = result.Errors,
-            Data = 1,
+            Data = null,
         };
     }
 

@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Harmony.Api.Helpers;
 using Harmony.Application.Contracts.Requests;
 using Harmony.Application.Services.Auth;
 using Harmony.Application.Services.Reflection;
@@ -22,6 +23,9 @@ public class ReflectionController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllReflectionsAsync()
     {
+        var user = await authService.GetUserAsync(HttpContext.User);
+        if (user is null) return Unauthorized(await Task.FromResult(new UserNotFoundResponse()));
+
         string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
         var result = await reflectionService.GetAllEntriesAsync(userId);
 
@@ -32,8 +36,9 @@ public class ReflectionController : ControllerBase
     public async Task<IActionResult> CreateReflectionAsync([FromBody] CreateReflectionRequest model)
     {
         var user = await authService.GetUserAsync(HttpContext.User);
-        var result = await reflectionService.CreateReflectionAsync(user, model);
+        if (user is null) return Unauthorized(await Task.FromResult(new UserNotFoundResponse()));
 
+        var result = await reflectionService.CreateReflectionAsync(user, model);
         return StatusCode(result.StatusCode, result);
     }
 
@@ -41,8 +46,9 @@ public class ReflectionController : ControllerBase
     public async Task<IActionResult> DeleteReflectionAsync([FromRoute] string id)
     {
         var user = await authService.GetUserAsync(HttpContext.User);
-        var result = await reflectionService.DeleteReflectionAsync(user, id);
+        if (user is null) return Unauthorized(await Task.FromResult(new UserNotFoundResponse()));
 
+        var result = await reflectionService.DeleteReflectionAsync(user, id);
         return StatusCode(result.StatusCode, result);
     }
 }

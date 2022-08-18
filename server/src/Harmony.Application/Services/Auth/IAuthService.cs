@@ -8,7 +8,7 @@ namespace Harmony.Application.Services.Auth;
 
 public interface IAuthService
 {
-    Task<IdentityResponse<int>> RegisterAsync(AuthRequest model);
+    Task<IdentityResponse<string>> RegisterAsync(AuthRequest model);
     Task<IdentityResponse<LoginResponse>> LoginAsync(AuthRequest model);
     Task<User> GetUserAsync(ClaimsPrincipal principal);
 }

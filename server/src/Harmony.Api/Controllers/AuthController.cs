@@ -1,3 +1,5 @@
+using Harmony.Api.Helpers;
+using Harmony.Application.Contracts;
 using Harmony.Application.Contracts.Requests;
 using Harmony.Application.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
@@ -30,9 +32,12 @@ public class AuthController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("jwt")]
-    public string Protected()
+    [HttpGet("me")]
+    public async Task<IActionResult> GetMoi()
     {
-        return "This is a protected route";
+        var user = await authService.GetUserAsync(HttpContext.User);
+        if (user is null) return Unauthorized(await Task.FromResult(new UserNotFoundResponse()));
+
+        return Ok(user);
     }
 }

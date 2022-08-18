@@ -8,6 +8,6 @@ namespace Harmony.Application.Services.Reflection;
 public interface IReflectionService
 {
     public Task<Response<List<GetReflectionsResponse>>> GetAllEntriesAsync(string userId);
-    public Task<Response<int>> CreateReflectionAsync(User user, CreateReflectionRequest model);
-    public Task<Response<int>> DeleteReflectionAsync(User user, string id);
+    public Task<Response<string>> CreateReflectionAsync(User user, CreateReflectionRequest model);
+    public Task<Response<string>> DeleteReflectionAsync(User user, string id);
 }
