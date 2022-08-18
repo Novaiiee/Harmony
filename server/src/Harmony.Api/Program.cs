@@ -1,4 +1,5 @@
 using Harmony.Application;
+using Harmony.Application.Common;
 using Harmony.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,10 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
 
+    builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.Services.AddApplication();
 }
 
 var app = builder.Build();

@@ -13,14 +13,12 @@ namespace Harmony.Application.Services.Auth;
 public class AuthService : IAuthService
 {
     private readonly UserManager<User> userManager;
-    private readonly IConfiguration config;
     private readonly IJwtGenerator jwtService;
 
-    public AuthService(UserManager<User> _userManager, IConfiguration _config, IJwtGenerator _jwtService)
+    public AuthService(IJwtGenerator jwtService, UserManager<User> userManager)
     {
-        userManager = _userManager;
-        config = _config;
-        jwtService = _jwtService;
+        this.jwtService = jwtService;
+        this.userManager = userManager;
     }
 
     public async Task<IdentityResponse<LoginResponse>> LoginAsync(AuthRequest model)

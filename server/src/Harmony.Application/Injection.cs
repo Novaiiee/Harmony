@@ -1,3 +1,4 @@
+using System.Reflection;
 using Harmony.Application.Services.Auth;
 using Harmony.Application.Services.Reflection;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ public static class Injection
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IReflectionService, ReflectionService>();
+
         return services;
     }
 }
