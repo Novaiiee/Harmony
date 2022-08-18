@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Harmony.Application.Contracts.Requests;
 
-public class CreateJournalRequest
+public class CreateReflectionRequest
 {
     [Required]
     public List<string> Activities { get; set; } = null!;

@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Canine.Controllers;
 
-[Route("auth")]
-[ApiController]
+[Route("auth"), ApiController]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService authService;
@@ -34,6 +33,6 @@ public class AuthController : ControllerBase
     [HttpGet("jwt")]
     public string Protected()
     {
-        return "This works";
+        return "This is a protected route";
     }
 }

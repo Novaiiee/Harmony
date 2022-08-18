@@ -5,11 +5,11 @@ namespace Harmony.Infrastructure;
 
 public static class Seed
 {
-    private static readonly List<string> Moods = new List<string> { "Terrible", "Bad", "Okay", "Good", "Awesome" };
+    private static readonly List<string> Moods = new() { "Terrible", "Bad", "Okay", "Good", "Awesome" };
 
-    private static readonly List<string> Feelings = new List<string> { "Happy", "Blessed", "Good", "Confused", "Bored", "Awkward", "Angry", "Anxious", "Down", "Stressed" };
+    private static readonly List<string> Feelings = new() { "Happy", "Blessed", "Good", "Confused", "Bored", "Awkward", "Angry", "Anxious", "Down", "Stressed" };
 
-    private static readonly List<string> Activities = new List<string> { "Being With Family", "Friends", "Going on a Date", "Being with Friends", "Exercising", "Sports", "Relaxing", "Watching Movies", "Reading", "Gaming", "Cleaning", "Shopping", "Eating Healthy" };
+    private static readonly List<string> Activities = new() { "Being With Family", "Friends", "Going on a Date", "Being with Friends", "Exercising", "Sports", "Relaxing", "Watching Movies", "Reading", "Gaming", "Cleaning", "Shopping", "Eating Healthy" };
 
     public static void Create(ModelBuilder builder)
     {

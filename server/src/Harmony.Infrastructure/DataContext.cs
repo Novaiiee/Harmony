@@ -10,7 +10,7 @@ namespace Harmony.Infrastructure;
 public class DataContext : IdentityDbContext<User>, IDataContext
 {
     public DbSet<Feeling> Feelings { get; set; } = null!;
-    public DbSet<JournalEntry> JournalEntries { get; set; } = null!;
+    public DbSet<ReflectionEntry> Reflections { get; set; } = null!;
     public DbSet<Activity> Activities { get; set; } = null!;
     public DbSet<Mood> Moods { get; set; } = null!;
 
@@ -45,7 +45,7 @@ public class DataContext : IdentityDbContext<User>, IDataContext
             .Property(b => b.Id)
             .HasDefaultValue(new Guid().ToString());
 
-        builder.Entity<JournalEntry>()
+        builder.Entity<ReflectionEntry>()
             .Property(b => b.Id)
             .HasDefaultValue(new Guid().ToString());
 
@@ -62,7 +62,7 @@ public class DataContext : IdentityDbContext<User>, IDataContext
             .Property(b => b.CreatedAt)
             .HasDefaultValue(new Instant());
 
-        builder.Entity<JournalEntry>()
+        builder.Entity<ReflectionEntry>()
             .Property(b => b.CreatedAt)
             .HasDefaultValue(new Instant());
 
@@ -79,7 +79,7 @@ public class DataContext : IdentityDbContext<User>, IDataContext
             .Property(b => b.UpdatedAt)
             .HasDefaultValue(new Instant());
 
-        builder.Entity<JournalEntry>()
+        builder.Entity<ReflectionEntry>()
             .Property(b => b.UpdatedAt)
             .HasDefaultValue(new Instant());
 
