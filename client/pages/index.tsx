@@ -1,5 +1,3 @@
-import { Button, Typography } from "@mui/material";
-import { motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -12,10 +10,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Typography>Hello World</Typography>
-        <Button variant="contained" component={motion.div}>
-          Here is a button
-        </Button>
+
       </main>
     </>
   );

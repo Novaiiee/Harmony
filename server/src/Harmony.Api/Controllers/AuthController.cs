@@ -1,5 +1,4 @@
 using Harmony.Api.Helpers;
-using Harmony.Application.Contracts;
 using Harmony.Application.Contracts.Requests;
 using Harmony.Application.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
