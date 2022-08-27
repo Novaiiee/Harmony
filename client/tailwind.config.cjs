@@ -1,39 +1,11 @@
-const colors = require("tailwindcss/colors");
+/** @type {import("tailwindcss").Config} **/
 
 module.exports = {
-	content: ["./**/*.{html,css,tsx}"],
+	content: ["./components/**/*.tsx", "./pages/**/*.tsx"],
+	mode: "jit",
 	darkMode: "class",
 	theme: {
 		extend: {
-			colors: {
-				transparent: "transparent",
-				current: "currentColor",
-				violet: colors.violet,
-				black: colors.black,
-				white: colors.white,
-				gray: colors.gray,
-				red: colors.red,
-				yellow: colors.yellow,
-				green: colors.green,
-				blue: colors.blue,
-				indigo: colors.indigo,
-				purple: colors.purple,
-				stone: colors.stone,
-				cyan: colors.cyan,
-				almostBlack: {
-					100: "#d0d0d0",
-					200: "#a1a1a1",
-					300: "#727272",
-					400: "#434343",
-					500: "#141414",
-					600: "#101010",
-					700: "#0c0c0c",
-					800: "#080808",
-					900: "#040404"
-				},
-				lightModeBackground: "#EBF0F1",
-				darkModeBackground: "#1E1E1E"
-			},
 			flex: {
 				1: "1 1 0%",
 				2: "2 2 0%",
@@ -41,7 +13,7 @@ module.exports = {
 				4: "4 4 0%",
 				5: "5 5 0%"
 			},
-			height: () => ({
+			height: {
 				"10vh": "10vh",
 				"20vh": "20vh",
 				"30vh": "30vh",
@@ -51,9 +23,8 @@ module.exports = {
 				"70vh": "70vh",
 				"80vh": "80vh",
 				"90vh": "90vh"
-			}),
-			minWidth: (theme) => ({
-				...theme.width,
+			},
+			width: {
 				"10vw": "10vw",
 				"20vw": "20vw",
 				"30vw": "30vw",
@@ -63,7 +34,7 @@ module.exports = {
 				"70vw": "70vw",
 				"80vw": "80vw",
 				"90vw": "90vw"
-			}),
+			},
 			opacity: {
 				0: "0",
 				5: "0.05",
@@ -86,12 +57,8 @@ module.exports = {
 			},
 			fontFamily: {
 				inter: ['"Inter"', "sans-serif"],
-				poppins: ['"Poppins"', "sans-serif"],
-				montserrat: ['"Montserrat"', "sans-serif"],
-				basier: ['"Basier Circle"', "sans-serif"]
 			}
 		}
 	},
-	// eslint-disable-next-line global-require
 	plugins: [require("@tailwindcss/forms")]
 };

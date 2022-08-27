@@ -6,8 +6,10 @@ import {
 import type { AppProps } from "next/app";
 import { useState } from "react";
 
+import "@fontsource/inter"
 import "../styles/globals.css";
-import GlobalStyles from "../styles/globalStyles";
+
+import Layout from "../components/shared/Layout";
 
 const MyApp: React.FunctionComponent<AppProps> = (props) => {
   const { Component, pageProps } = props;
@@ -16,8 +18,9 @@ const MyApp: React.FunctionComponent<AppProps> = (props) => {
   return (
     <QueryClientProvider client={client}>
       <Hydrate state={pageProps.dehydratedState}>
-        <GlobalStyles />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Hydrate>
     </QueryClientProvider>
   );
